@@ -1,10 +1,8 @@
-import axios from 'axios';
-
-const baseURL = 'http://localhost:3001';
+import api from '../../config/api';
 
 const getProducts = async () => {
   try {
-    const response = await axios.get(`${baseURL}/products`);
+    const response = await api.get(`/products`);
     return response.data;
   } catch (error) {
     console.error('Erro ao obter os produtos:', error);
