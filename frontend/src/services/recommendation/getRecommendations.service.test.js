@@ -249,4 +249,148 @@ describe('getRecommendations Service', () => {
       expect(result[1].name).toBe('RD Station Marketing');
     });
   });
+
+  describe('6. Lidar com diferentes tipos de preferências', () => {
+    test('deve processar preferências de Vendas no modo SingleProduct', () => {
+      const formData = createFormData({
+        selectedPreferences: ['Integração fácil com ferramentas de e-mail'],
+        selectedRecommendationType: RECOMMENDATION_TYPES.SINGLE_PRODUCT,
+      });
+
+      const result = getRecommendations(formData, mockProducts);
+
+      expect(result).toHaveLength(1);
+      expect(result[0].category).toBe('Vendas');
+    });
+
+    test('deve processar preferências de Vendas no modo MultipleProducts', () => {
+      const formData = createFormData({
+        selectedPreferences: ['Integração fácil com ferramentas de e-mail'],
+        selectedRecommendationType: RECOMMENDATION_TYPES.MULTIPLE_PRODUCTS,
+      });
+
+      const result = getRecommendations(formData, mockProducts);
+
+      expect(result).toHaveLength(1);
+      expect(result[0].category).toBe('Vendas');
+    });
+
+    test('deve processar preferências de Marketing no modo SingleProduct', () => {
+      const formData = createFormData({
+        selectedPreferences: ['Automação de marketing'],
+        selectedRecommendationType: RECOMMENDATION_TYPES.SINGLE_PRODUCT,
+      });
+
+      const result = getRecommendations(formData, mockProducts);
+
+      expect(result).toHaveLength(1);
+      expect(result[0].category).toBe('Marketing');
+    });
+
+    test('deve processar preferências de Marketing no modo MultipleProducts', () => {
+      const formData = createFormData({
+        selectedPreferences: ['Automação de marketing'],
+        selectedRecommendationType: RECOMMENDATION_TYPES.MULTIPLE_PRODUCTS,
+      });
+
+      const result = getRecommendations(formData, mockProducts);
+
+      expect(result).toHaveLength(1);
+      expect(result[0].category).toBe('Marketing');
+    });
+
+    test('deve processar preferências de Omnichannel no modo SingleProduct', () => {
+      const formData = createFormData({
+        selectedPreferences: ['Integração com chatbots'],
+        selectedRecommendationType: RECOMMENDATION_TYPES.SINGLE_PRODUCT,
+      });
+
+      const result = getRecommendations(formData, mockProducts);
+
+      expect(result).toHaveLength(1);
+      expect(result[0].category).toBe('Omnichannel');
+    });
+
+    test('deve processar preferências de Omnichannel no modo MultipleProducts', () => {
+      const formData = createFormData({
+        selectedPreferences: ['Integração com chatbots'],
+        selectedRecommendationType: RECOMMENDATION_TYPES.MULTIPLE_PRODUCTS,
+      });
+
+      const result = getRecommendations(formData, mockProducts);
+
+      expect(result).toHaveLength(1);
+      expect(result[0].category).toBe('Omnichannel');
+    });
+
+    test('deve processar preferências de Uso de Inteligência Artificial no modo SingleProduct', () => {
+      const formData = createFormData({
+        selectedPreferences: ['Análise preditiva de dados'],
+        selectedRecommendationType: RECOMMENDATION_TYPES.SINGLE_PRODUCT,
+      });
+
+      const result = getRecommendations(formData, mockProducts);
+
+      expect(result).toHaveLength(1);
+      expect(result[0].category).toBe('Uso de Inteligência Artificial');
+    });
+
+    test('deve processar preferências de Uso de Inteligência Artificial no modo MultipleProducts', () => {
+      const formData = createFormData({
+        selectedPreferences: ['Análise preditiva de dados'],
+        selectedRecommendationType: RECOMMENDATION_TYPES.MULTIPLE_PRODUCTS,
+      });
+
+      const result = getRecommendations(formData, mockProducts);
+
+      expect(result).toHaveLength(1);
+      expect(result[0].category).toBe('Uso de Inteligência Artificial');
+    });
+
+    test('deve processar combinação de diferentes tipos de preferências', () => {
+      const formData = createFormData({
+        selectedPreferences: [
+          'Integração fácil com ferramentas de e-mail', // Categoria: Vendas
+          'Automação de marketing', // Categoria: Marketing
+          'Integração com chatbots', // Categoria: Omnichannel
+        ],
+        selectedRecommendationType: RECOMMENDATION_TYPES.MULTIPLE_PRODUCTS,
+      });
+
+      const result = getRecommendations(formData, mockProducts);
+
+      expect(result.length).toBeGreaterThan(1);
+      expect(result[0].name).toBe('RD Station CRM');
+      expect(result[1].name).toBe('RD Station Marketing');
+      expect(result[2].name).toBe('RD Conversas');
+    });
+
+    test('deve lidar com preferências de uma mesma categoria', () => {
+      const formData = createFormData({
+        selectedPreferences: [
+          'Integração fácil com ferramentas de e-mail', // Categoria: Vendas
+          'Personalização de funis de vendasg', // Categoria: Vendas
+        ],
+        selectedRecommendationType: RECOMMENDATION_TYPES.MULTIPLE_PRODUCTS,
+      });
+
+      const result = getRecommendations(formData, mockProducts);
+
+      expect(result).toHaveLength(1);
+      expect(result[0].name).toBe('RD Station CRM');
+      expect(result[0].category).toBe('Vendas');
+    });
+
+    test('deve lidar com preferências e características vazias', () => {
+      const formData = createFormData({
+        selectedPreferences: [],
+        selectedFeatures: [],
+        selectedRecommendationType: RECOMMENDATION_TYPES.MULTIPLE_PRODUCTS,
+      });
+
+      const result = getRecommendations(formData, mockProducts);
+
+      expect(result).toEqual([]);
+    });
+  });
 });
