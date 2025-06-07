@@ -10,9 +10,10 @@ const Home = () => {
 
   return (
     <>
-      <h1 className="text-3xl font-bold mb-8">
+      <h2 className="text-xl font-bold theme-text-primary mb-8">
         Recomendador de Produtos RD Station
-      </h1>
+      </h2>
+
       <div className="bg-white p-8 rounded-lg shadow-md w-full md:w-3/4 lg:w-1/2 grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
           <Form onUpdateRecommendations={onUpdateRecommendations} />

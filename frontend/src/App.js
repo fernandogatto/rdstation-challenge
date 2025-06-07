@@ -1,11 +1,14 @@
+import { ThemeProvider } from './hooks/useTheme';
 import DefaultLayout from './layouts/DefaultLayout';
 import Home from './pages/Home';
 
 function App() {
   return (
-    <DefaultLayout>
-      <Home />
-    </DefaultLayout>
+    <ThemeProvider>
+      <DefaultLayout>
+        <Home />
+      </DefaultLayout>
+    </ThemeProvider>
   );
 }
 

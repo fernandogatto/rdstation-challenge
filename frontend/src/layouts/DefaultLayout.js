@@ -1,7 +1,10 @@
+import Header from '../components/Header';
+
 const DefaultLayout = ({ children }) => {
   return (
-    <div className="bg-gray-100 min-h-screen flex flex-col justify-center items-center">
-      {children}
+    <div className="theme-bg-primary theme-transition min-h-screen">
+      <Header />
+      <div className="container mx-auto px-4 py-8">{children}</div>
     </div>
   );
 };
