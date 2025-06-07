@@ -9,23 +9,20 @@ const Home = () => {
     useRecommendations(products);
 
   return (
-    <>
+    <div className="rounded-lg shadow-md p-8 theme-bg-primary">
       <h2 className="text-xl font-bold theme-text-primary mb-8">
         Recomendador de Produtos RD Station
       </h2>
 
-      <div className="bg-white p-8 rounded-lg shadow-md w-full md:w-3/4 lg:w-1/2 grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div>
-          <Form onUpdateRecommendations={onUpdateRecommendations} />
-        </div>
-        <div>
-          <RecommendationList
-            recommendations={recommendations}
-            stats={recommendationStats}
-          />
-        </div>
+      <div className="w-full space-y-8">
+        <Form onUpdateRecommendations={onUpdateRecommendations} />
+
+        <RecommendationList
+          recommendations={recommendations}
+          stats={recommendationStats}
+        />
       </div>
-    </>
+    </div>
   );
 };
 

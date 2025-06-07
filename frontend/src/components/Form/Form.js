@@ -17,27 +17,26 @@ function Form({ onUpdateRecommendations }) {
   };
 
   return (
-    <form
-      className="max-w-md mx-auto p-4 bg-white rounded-lg shadow-md"
-      onSubmit={handleSubmit}
-    >
-      <Preferences
-        preferences={preferences}
-        onPreferenceChange={(selected) =>
-          handleChange('selectedPreferences', selected)
-        }
-      />
-      <Features
-        features={features}
-        onFeatureChange={(selected) =>
-          handleChange('selectedFeatures', selected)
-        }
-      />
-      <RecommendationType
-        onRecommendationTypeChange={(selected) =>
-          handleChange('selectedRecommendationType', selected)
-        }
-      />
+    <form onSubmit={handleSubmit}>
+      <div className="flex flex-col gap-4 md:flex-row">
+        <Preferences
+          preferences={preferences}
+          onPreferenceChange={(selected) =>
+            handleChange('selectedPreferences', selected)
+          }
+        />
+        <Features
+          features={features}
+          onFeatureChange={(selected) =>
+            handleChange('selectedFeatures', selected)
+          }
+        />
+        <RecommendationType
+          onRecommendationTypeChange={(selected) =>
+            handleChange('selectedRecommendationType', selected)
+          }
+        />
+      </div>
       <SubmitButton text="Obter recomendação" />
     </form>
   );

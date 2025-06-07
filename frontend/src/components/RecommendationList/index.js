@@ -1,28 +1,18 @@
+import { ChartColumnBig, Search } from 'lucide-react';
+
 function RecommendationList({ recommendations, stats }) {
   return (
-    <div className="max-w-4xl mx-auto">
+    <div>
       <div className="mb-6">
-        <h3 className="text-2xl font-semibold text-gray-900 mb-4">
+        <h3 className="text-lg font-bold mb-2 theme-text-primary">
           Lista de Recomendações
         </h3>
 
         {/* Seção de Estatísticas */}
         {stats && typeof stats === 'object' && (
-          <div className="bg-white rounded-lg shadow-md p-6 mb-6 border border-gray-200">
-            <h4 className="text-lg font-medium text-gray-900 mb-4 flex items-center">
-              <svg
-                className="w-5 h-5 mr-2 text-blue-500"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                />
-              </svg>
+          <div className="theme-bg-primary rounded-lg shadow-md p-6 mb-6 border border-gray-200">
+            <h4 className="text-lg font-medium gap-2 text-bg-primary mb-4 flex items-center">
+              <ChartColumnBig />
               Estatísticas das Recomendações
             </h4>
 
@@ -65,58 +55,17 @@ function RecommendationList({ recommendations, stats }) {
                 </div>
               </div>
             </div>
-
-            {/* Distribuição por categorias */}
-            {stats.categories &&
-              typeof stats.categories === 'object' &&
-              Object.keys(stats.categories).length > 0 && (
-                <div className="border-t pt-4">
-                  <h5 className="font-medium text-gray-900 mb-3">
-                    Distribuição por Categoria:
-                  </h5>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                    {Object.entries(stats.categories).map(
-                      ([category, count]) => (
-                        <div
-                          key={category}
-                          className="flex justify-between items-center bg-gray-50 rounded-md px-3 py-2"
-                        >
-                          <span className="text-sm font-medium text-gray-700">
-                            {category}
-                          </span>
-                          <span className="text-sm bg-gray-200 text-gray-800 px-2 py-1 rounded-full">
-                            {count}
-                          </span>
-                        </div>
-                      )
-                    )}
-                  </div>
-                </div>
-              )}
           </div>
         )}
 
         {/* Lista de Recomendações */}
         {recommendations.length === 0 ? (
-          <div className="text-center py-12">
-            <svg
-              className="w-16 h-16 mx-auto text-gray-400 mb-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.47-.881-6.08-2.33"
-              />
-            </svg>
-            <p className="text-gray-500 text-lg">
-              Nenhuma recomendação encontrada.
-            </p>
-            <p className="text-gray-400 text-sm mt-1">
-              Tente ajustar os filtros ou critérios de busca.
+          <div className="py-12 text-center">
+            <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full theme-bg-secondary">
+              <Search className="text-primary" />
+            </div>
+            <p className="mb-2 text-lg font-medium">
+              Nenhum resultado encontrado
             </p>
           </div>
         ) : (
@@ -130,11 +79,11 @@ function RecommendationList({ recommendations, stats }) {
               return (
                 <div
                   key={index}
-                  className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 border border-gray-200"
+                  className="theme-bg-primary rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 border border-gray-200"
                 >
                   <div className="p-6">
                     <div className="flex items-start justify-between mb-3">
-                      <h4 className="text-xl font-semibold text-gray-900 flex-1">
+                      <h4 className="text-xl font-semibold text-bg-primary flex-1">
                         {recommendation.name || 'Nome não disponível'}
                       </h4>
 
@@ -170,7 +119,7 @@ function RecommendationList({ recommendations, stats }) {
                                   }}
                                 ></div>
                               </div>
-                              <span className="text-sm font-medium text-gray-900">
+                              <span className="text-sm font-medium text-bg-primary">
                                 {recommendation.relevance.toFixed(2)}
                               </span>
                             </div>
