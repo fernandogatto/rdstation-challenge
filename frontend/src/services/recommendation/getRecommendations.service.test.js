@@ -462,4 +462,43 @@ describe('getRecommendations Service', () => {
       expect(result).toEqual([]);
     });
   });
+
+  describe('8. Validação da estrutura dos resultados', () => {
+    test('produtos retornados devem ter estrutura correta', () => {
+      const formData = createFormData({
+        selectedPreferences: ['Automação de marketing'],
+        selectedRecommendationType: RECOMMENDATION_TYPES.MULTIPLE_PRODUCTS,
+      });
+
+      const result = getRecommendations(formData, mockProducts);
+
+      expect(Array.isArray(result)).toBe(true);
+      result.forEach((product) => {
+        expect(product).toHaveProperty('name');
+        expect(product).toHaveProperty('relevance');
+        expect(typeof product.name).toBe('string');
+        expect(typeof product.relevance).toBe('number');
+        expect(product.relevance).toBeGreaterThanOrEqual(0);
+      });
+    });
+
+    test('relevância deve ser calculada corretamente', () => {
+      const formData = createFormData({
+        selectedPreferences: ['Automação de marketing'],
+        selectedFeatures: ['Criação e gestão de campanhas de e-mail'],
+        selectedRecommendationType: RECOMMENDATION_TYPES.MULTIPLE_PRODUCTS,
+      });
+
+      const result = getRecommendations(formData, mockProducts);
+
+      // Produtos com mais matches devem ter score maior
+      const productWithFeatureAndPreference = result.find(
+        (product) => product.relevance > 1
+      );
+
+      // Deve ter um grau de relevância maior que 1
+      expect(productWithFeatureAndPreference.name).toBe('RD Station Marketing');
+      expect(productWithFeatureAndPreference.relevance).toBeGreaterThan(1);
+    });
+  });
 });
