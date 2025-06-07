@@ -3,10 +3,11 @@ import mockProducts from '../../mocks/mockProducts';
 import { getRecommendations } from './getRecommendations.service';
 
 describe('getRecommendations Service', () => {
-  const createFormData = () => ({
+  const createFormData = (overrides = {}) => ({
     selectedPreferences: [],
     selectedFeatures: [],
-    selectedRecommendationType: RECOMMENDATION_TYPES.SINGLE_PRODUCT,
+    selectedRecommendationType: 'SingleProduct',
+    ...overrides,
   });
 
   describe('1. Receber preferências do usuário via formulário', () => {
@@ -59,6 +60,55 @@ describe('getRecommendations Service', () => {
 
       expect(result).toBeDefined();
       expect(Array.isArray(result)).toBe(true);
+    });
+  });
+
+  describe('2. Retornar recomendações baseadas nas preferências', () => {
+    test('deve retornar produto específico para preferência específica', () => {
+      const formData = createFormData({
+        selectedPreferences: ['Integração com chatbots'],
+        selectedFeatures: ['Chat ao vivo e mensagens automatizadas'],
+        selectedRecommendationType: RECOMMENDATION_TYPES.SINGLE_PRODUCT,
+      });
+
+      const result = getRecommendations(formData, mockProducts);
+
+      expect(result).toHaveLength(1);
+      expect(result[0].name).toBe('RD Conversas');
+    });
+
+    test('deve retornar produtos relevantes para múltiplas preferências', () => {
+      const formData = createFormData({
+        selectedPreferences: [
+          'Integração fácil com ferramentas de e-mail',
+          'Personalização de funis de vendas',
+          'Automação de marketing',
+        ],
+        selectedFeatures: [
+          'Rastreamento de interações com clientes',
+          'Rastreamento de comportamento do usuário',
+        ],
+        selectedRecommendationType: RECOMMENDATION_TYPES.MULTIPLE_PRODUCTS,
+      });
+
+      const result = getRecommendations(formData, mockProducts);
+
+      expect(result).toHaveLength(2);
+      expect(result.map((product) => product.name)).toEqual([
+        'RD Station CRM',
+        'RD Station Marketing',
+      ]);
+    });
+
+    test('deve retornar lista vazia quando nenhum produto for relevante', () => {
+      const formData = createFormData({
+        selectedPreferences: ['Preferência inexistente'],
+        selectedFeatures: ['Característica inexistente'],
+      });
+
+      const result = getRecommendations(formData, mockProducts);
+
+      expect(result).toEqual([]);
     });
   });
 
