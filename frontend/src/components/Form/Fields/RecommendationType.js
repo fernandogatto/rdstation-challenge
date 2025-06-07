@@ -1,4 +1,4 @@
-import React from 'react';
+import { RECOMMENDATION_TYPES } from '../../../constants/recommendation/recommendationTypes';
 import Checkbox from '../../shared/Checkbox';
 
 function RecommendationType({ onRecommendationTypeChange }) {
@@ -12,7 +12,9 @@ function RecommendationType({ onRecommendationTypeChange }) {
           type="radio"
           name="recommendationType"
           value="SingleProduct"
-          onChange={() => onRecommendationTypeChange('SingleProduct')}
+          onChange={() =>
+            onRecommendationTypeChange(RECOMMENDATION_TYPES.SINGLE_PRODUCT)
+          }
           className="mr-2"
         />
         <label htmlFor="SingleProduct" className="mr-4">
@@ -22,7 +24,9 @@ function RecommendationType({ onRecommendationTypeChange }) {
           type="radio"
           name="recommendationType"
           value="MultipleProducts"
-          onChange={() => onRecommendationTypeChange('MultipleProducts')}
+          onChange={() =>
+            onRecommendationTypeChange(RECOMMENDATION_TYPES.MULTIPLE_PRODUCTS)
+          }
           className="mr-2"
         />
         <label htmlFor="MultipleProducts">Múltiplos Produtos</label>
