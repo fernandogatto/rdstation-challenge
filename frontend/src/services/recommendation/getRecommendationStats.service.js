@@ -13,7 +13,9 @@ export const getRecommendationStats = (recommendations) => {
     };
   }
 
-  const relevanceScores = recommendations.map((r) => r.relevance);
+  const relevanceScores = recommendations
+    .map((r) => r.relevance)
+    .filter((score) => typeof score === 'number' && !isNaN(score));
   const total = relevanceScores.reduce((sum, score) => sum + score, 0);
 
   return {
