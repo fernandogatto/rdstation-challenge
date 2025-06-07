@@ -157,23 +157,61 @@ describe('getRecommendations Service', () => {
     });
   });
 
-  test('Retorna apenas um produto para SingleProduct com mais de um produto de match', () => {
-    const formData = {
-      selectedPreferences: [
-        'Integração fácil com ferramentas de e-mail',
-        'Automação de marketing',
-      ],
-      selectedFeatures: [
-        'Rastreamento de interações com clientes',
-        'Rastreamento de comportamento do usuário',
-      ],
-      selectedRecommendationType: RECOMMENDATION_TYPES.SINGLE_PRODUCT,
-    };
+  describe('4. Modo MultipleProducts - retornar lista de produtos', () => {
+    test('deve retornar múltiplos produtos no modo MultipleProducts', () => {
+      const formData = createFormData({
+        selectedPreferences: [
+          'Integração fácil com ferramentas de e-mail',
+          'Personalização de funis de vendas',
+          'Automação de marketing',
+        ],
+        selectedFeatures: [
+          'Rastreamento de interações com clientes',
+          'Rastreamento de comportamento do usuário',
+        ],
+        selectedRecommendationType: RECOMMENDATION_TYPES.MULTIPLE_PRODUCTS,
+      });
 
-    const recommendations = getRecommendations(formData, mockProducts);
+      const result = getRecommendations(formData, mockProducts);
 
-    expect(recommendations).toHaveLength(1);
-    expect(recommendations[0].name).toBe('RD Station Marketing');
+      expect(result.length).toBeGreaterThan(1);
+      expect(result[0].name).toBe('RD Station CRM');
+      expect(result[1].name).toBe('RD Station Marketing');
+    });
+
+    test('deve ordenar produtos por relevância no modo MultipleProducts', () => {
+      const formData = createFormData({
+        selectedPreferences: [
+          'Integração fácil com ferramentas de e-mail',
+          'Automação de marketing',
+        ],
+        selectedRecommendationType: RECOMMENDATION_TYPES.MULTIPLE_PRODUCTS,
+      });
+
+      const result = getRecommendations(formData, mockProducts);
+
+      // Verifica se está ordenado por relevância (descendente)
+      for (let i = 0; i < result.length - 1; i++) {
+        expect(result[i].relevance).toBeGreaterThanOrEqual(
+          result[i + 1].relevance
+        );
+      }
+
+      expect(result).toHaveLength(2);
+      expect(result[0].name).toBe('RD Station CRM');
+      expect(result[1].name).toBe('RD Station Marketing');
+    });
+
+    test('deve retornar lista vazia no modo MultipleProducts quando nenhum produto for relevante', () => {
+      const formData = createFormData({
+        selectedPreferences: ['Preferência inexistente'],
+        selectedRecommendationType: RECOMMENDATION_TYPES.MULTIPLE_PRODUCTS,
+      });
+
+      const result = getRecommendations(formData, mockProducts);
+
+      expect(result).toEqual([]);
+    });
   });
 
   test('Retorna o último match em caso de empate para SingleProduct', () => {
