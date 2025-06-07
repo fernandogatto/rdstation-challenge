@@ -13,7 +13,7 @@ const Home = () => {
     <div className="rounded-lg shadow-md p-8 theme-bg-primary">
       <InfoAlert />
 
-      <h2 className="text-xl font-bold theme-text-primary mb-8">
+      <h2 className="text-xl font-bold theme-text-primary mb-4">
         Recomendador de Produtos RD Station
       </h2>
 
