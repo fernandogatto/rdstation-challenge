@@ -1,6 +1,7 @@
 import { ChartColumnBig } from 'lucide-react';
 import NotFound from '../NotFound';
 import RecommenationItem from '../RecommendationItem';
+import StatsCard from '../StatsCard';
 
 function RecommendationList({ recommendations, stats }) {
   return (
@@ -19,43 +20,30 @@ function RecommendationList({ recommendations, stats }) {
             </h4>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-              <div className="bg-blue-50 rounded-lg p-4">
-                <div className="text-sm text-blue-600 font-medium">
-                  Total de Recomendações
-                </div>
-                <div className="text-2xl font-bold text-blue-900">
-                  {stats.totalRecommendations || 0}
-                </div>
-              </div>
+              <StatsCard
+                title="Total de Recomendações"
+                value={stats.totalRecommendations}
+                color="blue"
+              />
 
-              <div className="bg-green-50 rounded-lg p-4">
-                <div className="text-sm text-green-600 font-medium">
-                  Relevância Média
-                </div>
-                <div className="text-2xl font-bold text-green-900">
-                  {stats.averageRelevance
-                    ? stats.averageRelevance.toFixed(2)
-                    : '0.00'}
-                </div>
-              </div>
+              <StatsCard
+                title="Relevância Média"
+                value={stats.averageRelevance}
+                color="green"
+                formatValue={(val) => (val ? val.toFixed(2) : '0.00')}
+              />
 
-              <div className="bg-purple-50 rounded-lg p-4">
-                <div className="text-sm text-purple-600 font-medium">
-                  Máxima Relevância
-                </div>
-                <div className="text-2xl font-bold text-purple-900">
-                  {stats.maxRelevance || 0}
-                </div>
-              </div>
+              <StatsCard
+                title="Máxima Relevância"
+                value={stats.maxRelevance}
+                color="purple"
+              />
 
-              <div className="bg-orange-50 rounded-lg p-4">
-                <div className="text-sm text-orange-600 font-medium">
-                  Mínima Relevância
-                </div>
-                <div className="text-2xl font-bold text-orange-900">
-                  {stats.minRelevance || 0}
-                </div>
-              </div>
+              <StatsCard
+                title="Mínima Relevância"
+                value={stats.minRelevance}
+                color="orange"
+              />
             </div>
           </div>
         )}
