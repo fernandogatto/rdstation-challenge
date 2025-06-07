@@ -393,4 +393,73 @@ describe('getRecommendations Service', () => {
       expect(result).toEqual([]);
     });
   });
+
+  describe('7. Tratamento de Erros', () => {
+    test('deve retornar um array vazio quando products for um array vazio', () => {
+      const formData = createFormData({
+        selectedPreferences: ['Qualquer preferência'],
+        selectedRecommendationType: RECOMMENDATION_TYPES.MULTIPLE_PRODUCTS,
+      });
+
+      const result = getRecommendations(formData, []);
+
+      expect(result).toEqual([]);
+    });
+
+    test('deve retornar um array vazio quando products for undefined', () => {
+      const formData = createFormData({
+        selectedPreferences: ['Qualquer preferência'],
+        selectedRecommendationType: RECOMMENDATION_TYPES.MULTIPLE_PRODUCTS,
+      });
+
+      const result = getRecommendations(formData, undefined);
+
+      expect(result).toEqual([]);
+    });
+
+    test('deve lidar com tipo de recomendação inválida', () => {
+      const formData = createFormData({
+        selectedPreferences: [
+          'Integração fácil com ferramentas de e-mail',
+          'Automação de marketing',
+        ],
+        selectedRecommendationType: 'TipoInvalido',
+      });
+
+      const result = getRecommendations(formData, mockProducts);
+
+      // Deve usar comportamento padrão de MultipleProducts
+      expect(result.length).toBeGreaterThan(0);
+      expect(result[0].name).toBe('RD Station CRM');
+      expect(result[1].name).toBe('RD Station Marketing');
+    });
+
+    test('deve lidar com preferência inválida sem quebrar a aplicação', () => {
+      // Simula erro passando dados inválidos
+      const invalidFormData = {
+        selectedPreferences: 'não é um array', // Erro intencional
+        selectedRecommendationType: RECOMMENDATION_TYPES.SINGLE_PRODUCT,
+      };
+
+      const result = getRecommendations(invalidFormData, mockProducts);
+
+      // Deve retornar array vazio ao invés de quebrar
+      expect(Array.isArray(result)).toBe(true);
+      expect(result).toEqual([]);
+    });
+
+    test('deve lidar com característica inválida sem quebrar a aplicação', () => {
+      // Simula erro passando dados inválidos
+      const invalidFormData = {
+        selectedFeatures: 'não é um array', // Erro intencional
+        selectedRecommendationType: RECOMMENDATION_TYPES.SINGLE_PRODUCT,
+      };
+
+      const result = getRecommendations(invalidFormData, mockProducts);
+
+      // Deve retornar array vazio ao invés de quebrar
+      expect(Array.isArray(result)).toBe(true);
+      expect(result).toEqual([]);
+    });
+  });
 });
