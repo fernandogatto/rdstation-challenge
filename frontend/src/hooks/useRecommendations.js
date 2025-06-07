@@ -1,20 +1,18 @@
 // useRecommendations.js
 
 import { useState } from 'react';
-import recommendationService from '../services/recommendation/recommendation.service';
+import { getRecommendations } from '../services/recommendation/getRecommendations.service';
+import { getRecommendationStats } from '../services/recommendation/getRecommendationStats.service';
 
 function useRecommendations(products) {
   const [recommendations, setRecommendations] = useState([]);
   const [recommendationStats, setRecommendationStats] = useState(null);
 
   const onUpdateRecommendations = (formData) => {
-    const recommendations = recommendationService.getRecommendations(
-      formData,
-      products
-    );
+    const recommendations = getRecommendations(formData, products);
     setRecommendations(recommendations);
 
-    const stats = recommendationService.getRecommendationStats(recommendations);
+    const stats = getRecommendationStats(recommendations);
     setRecommendationStats(stats);
   };
 
