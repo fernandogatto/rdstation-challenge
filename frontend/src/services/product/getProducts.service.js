@@ -1,6 +1,11 @@
 import api from '../../config/api';
 
-const getProducts = async () => {
+/**
+ * Retorna os dados dos produtos em caso de sucesso
+ * @returns {Object[]} Lista de produtos
+ * @throws {Error} Se houver erro na validação dos dados
+ */
+export const getProducts = async () => {
   try {
     const response = await api.get(`/products`);
     return response.data;
@@ -9,5 +14,3 @@ const getProducts = async () => {
     throw error;
   }
 };
-
-export default getProducts;
