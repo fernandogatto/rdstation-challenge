@@ -1,4 +1,5 @@
 import Form from '../components/Form/Form';
+import InfoAlert from '../components/InfoAlert';
 import RecommendationList from '../components/RecommendationList';
 import useProducts from '../hooks/useProducts';
 import useRecommendations from '../hooks/useRecommendations';
@@ -10,6 +11,8 @@ const Home = () => {
 
   return (
     <div className="rounded-lg shadow-md p-8 theme-bg-primary">
+      <InfoAlert />
+
       <h2 className="text-xl font-bold theme-text-primary mb-8">
         Recomendador de Produtos RD Station
       </h2>
