@@ -214,18 +214,39 @@ describe('getRecommendations Service', () => {
     });
   });
 
-  test('Retorna o último match em caso de empate para SingleProduct', () => {
-    const formData = {
-      selectedPreferences: [
-        'Automação de marketing',
-        'Integração com chatbots',
-      ],
-      selectedRecommendationType: RECOMMENDATION_TYPES.SINGLE_PRODUCT,
-    };
+  describe('5. Em caso de empate, retornar o último produto válido', () => {
+    test('deve retornar o último produto em caso de empate no modo SingleProduct', () => {
+      const formData = createFormData({
+        selectedPreferences: [
+          'Integração fácil com ferramentas de e-mail',
+          'Automação de marketing',
+        ],
+        selectedRecommendationType: RECOMMENDATION_TYPES.SINGLE_PRODUCT,
+      });
 
-    const recommendations = getRecommendations(formData, mockProducts);
+      const result = getRecommendations(formData, mockProducts);
 
-    expect(recommendations).toHaveLength(1);
-    expect(recommendations[0].name).toBe('RD Conversas');
+      expect(result).toHaveLength(1);
+      expect(result[0].name).toBe('RD Station Marketing');
+    });
+
+    test('deve manter a ordem por relevância em caso de empate no modo MultipleProducts', () => {
+      const formData = createFormData({
+        selectedPreferences: [
+          'Integração fácil com ferramentas de e-mail',
+          'Automação de marketing',
+        ],
+        selectedRecommendationType: RECOMMENDATION_TYPES.MULTIPLE_PRODUCTS,
+      });
+
+      const result = getRecommendations(formData, mockProducts);
+
+      expect(result.length).toBeGreaterThan(1);
+      expect(result[0].relevance).toBeGreaterThanOrEqual(result[1].relevance);
+
+      // Se há empate, deve manter a ordem original
+      expect(result[0].name).toBe('RD Station CRM');
+      expect(result[1].name).toBe('RD Station Marketing');
+    });
   });
 });
