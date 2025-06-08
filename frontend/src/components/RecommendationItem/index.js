@@ -1,3 +1,5 @@
+import React from 'react';
+
 const RecommenationItem = ({ recommendation }) => {
   return (
     <div className="theme-bg-primary rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 border border-gray-200">

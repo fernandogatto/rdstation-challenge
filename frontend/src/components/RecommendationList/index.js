@@ -1,4 +1,4 @@
-import { AlignLeft, ChartColumnBig } from 'lucide-react';
+import React from 'react';
 import NotFound from '../NotFound';
 import RecommenationItem from '../RecommendationItem';
 import StatsCard from '../StatsCard';
@@ -8,8 +8,7 @@ function RecommendationList({ recommendations, stats }) {
     <div>
       <div className="mb-6">
         {/* Seção de Estatísticas */}
-        <h3 className="text-lg font-bold gap-2 text-bg-primary mb-4 flex items-center">
-          <ChartColumnBig />
+        <h3 className="text-lg font-bold text-bg-primary mb-4 flex items-center">
           Estatísticas das Recomendações
         </h3>
 
@@ -45,8 +44,7 @@ function RecommendationList({ recommendations, stats }) {
         )}
 
         {/* Lista de Recomendações */}
-        <h3 className="text-lg font-bold gap-2 text-bg-primary mb-4 flex items-center">
-          <AlignLeft />
+        <h3 className="text-lg font-bold text-bg-primary mb-4 flex items-center">
           Lista de Recomendações
         </h3>
 
