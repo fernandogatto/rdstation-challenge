@@ -1,3 +1,4 @@
+import { RECOMMENDATION_TYPES } from '../../constants/recommendation/recommendationTypes';
 import useForm from '../../hooks/useForm';
 import useProducts from '../../hooks/useProducts';
 import { Features, Preferences, RecommendationType } from './Fields';
@@ -8,7 +9,7 @@ function Form({ onUpdateRecommendations }) {
   const { formData, handleChange } = useForm({
     selectedPreferences: [],
     selectedFeatures: [],
-    selectedRecommendationType: '',
+    selectedRecommendationType: RECOMMENDATION_TYPES.MULTIPLE_PRODUCTS,
   });
 
   const handleSubmit = (e) => {

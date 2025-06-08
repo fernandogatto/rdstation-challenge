@@ -6,7 +6,12 @@ import { getRecommendationStats } from '../services/recommendation/getRecommenda
 
 function useRecommendations(products) {
   const [recommendations, setRecommendations] = useState([]);
-  const [recommendationStats, setRecommendationStats] = useState(null);
+  const [recommendationStats, setRecommendationStats] = useState({
+    totalRecommendations: 0,
+    averageRelevance: 0,
+    maxRelevance: 0,
+    minRelevance: 0,
+  });
 
   const onUpdateRecommendations = (formData) => {
     const recommendations = getRecommendations(formData, products);

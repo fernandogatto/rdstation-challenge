@@ -1,4 +1,4 @@
-import { ChartColumnBig } from 'lucide-react';
+import { AlignLeft, ChartColumnBig } from 'lucide-react';
 import NotFound from '../NotFound';
 import RecommenationItem from '../RecommendationItem';
 import StatsCard from '../StatsCard';
@@ -7,19 +7,15 @@ function RecommendationList({ recommendations, stats }) {
   return (
     <div>
       <div className="mb-6">
-        <h3 className="text-lg font-bold mb-2 theme-text-primary">
-          Lista de Recomendações
+        {/* Seção de Estatísticas */}
+        <h3 className="text-lg font-bold gap-2 text-bg-primary mb-4 flex items-center">
+          <ChartColumnBig />
+          Estatísticas das Recomendações
         </h3>
 
-        {/* Seção de Estatísticas */}
-        {stats && typeof stats === 'object' && (
+        {stats && (
           <div className="theme-bg-primary rounded-lg shadow-md p-6 mb-6 border border-gray-200">
-            <h4 className="text-lg font-medium gap-2 text-bg-primary mb-4 flex items-center">
-              <ChartColumnBig />
-              Estatísticas das Recomendações
-            </h4>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               <StatsCard
                 title="Total de Recomendações"
                 value={stats.totalRecommendations}
@@ -49,6 +45,11 @@ function RecommendationList({ recommendations, stats }) {
         )}
 
         {/* Lista de Recomendações */}
+        <h3 className="text-lg font-bold gap-2 text-bg-primary mb-4 flex items-center">
+          <AlignLeft />
+          Lista de Recomendações
+        </h3>
+
         {recommendations.length === 0 ? (
           <NotFound />
         ) : (
