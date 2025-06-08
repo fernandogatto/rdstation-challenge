@@ -6,7 +6,7 @@ const RecommenationItem = ({ recommendation }) => {
       <div className="p-6">
         <div className="flex items-start justify-between mb-3">
           <h4 className="text-xl font-semibold text-bg-primary flex-1">
-            {recommendation.name || 'Nome não disponível'}
+            {recommendation.name}
           </h4>
 
           {recommendation.category && (
@@ -15,12 +15,6 @@ const RecommenationItem = ({ recommendation }) => {
             </span>
           )}
         </div>
-
-        {recommendation.description && (
-          <p className="text-gray-600 mb-4 leading-relaxed">
-            {recommendation.description}
-          </p>
-        )}
 
         <div className="flex items-center justify-between">
           {recommendation.relevance &&
