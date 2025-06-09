@@ -19,6 +19,8 @@ Este projeto utiliza as seguintes tecnologias principais:
 - React.js: Para o desenvolvimento do front-end
 - json-server: Para simular um servidor RESTful com dados de produtos
 - Tailwind CSS: Para estilização e layout responsivo
+- Jest e Testing Library: Para validação dos testes unitários e de integração
+- Storybook: Para documentação dos componentes
 
 ## Requisitos Técnicos
 
@@ -71,8 +73,21 @@ Para completar este teste, você deve concentrar-se principalmente em três arqu
 
 1. Clone o repositório: `git clone <URL_DO_REPOSITORIO>`
 2. Instale as dependências: `yarn install`
-3. Para instalar o projeto, execute o script `./install.sh` 
+3. Para instalar o projeto, execute o script `./install.sh`
 4. Inicie a aplicação: `yarn start`
+
+### Scripts do backend
+
+1. Entre na pasta frontend: `cd .\backend\`
+2. Execução do servidor: `yarn run start`
+
+### Instalação das dependências do frontend
+
+1. Entre na pasta frontend: `cd .\frontend\`
+2. Instale as dependências: `yarn install`
+3. Execução do servidor: `yarn run start`
+4. Execução dos testes: `yarn run test:watch`
+5. Execução do storybook: `yarn run storybook`
 
 ### Scripts Disponíveis
 
@@ -80,6 +95,7 @@ Para completar este teste, você deve concentrar-se principalmente em três arqu
 - `start:frontend`: Inicia apenas a parte frontend da aplicação em modo de desenvolvimento.
 - `start:backend`: Inicia apenas a parte backend da aplicação em modo de desenvolvimento.
 - `dev`: Inicia simultaneamente a parte frontend e backend da aplicação em modo de desenvolvimento.
+- `storybook`: Inicia apenas a documentação do storybook para o frontend.
 
 ## Critérios de Aceite
 
