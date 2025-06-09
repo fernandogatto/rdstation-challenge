@@ -33,7 +33,10 @@ const StatsCard = ({
   const colors = colorClasses[color] || colorClasses.blue;
 
   return (
-    <div className={`${colors.bg} rounded-lg p-4 ${className}`}>
+    <div
+      className={`${colors.bg} rounded-lg p-4 ${className}`}
+      data-testid="stats-card"
+    >
       <div className={`text-sm ${colors.textColor} font-medium`}>{title}</div>
       <div className={`text-2xl font-bold ${colors.valueColor}`}>
         {formatValue(value)}
