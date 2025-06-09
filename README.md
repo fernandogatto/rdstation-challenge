@@ -78,7 +78,7 @@ Para completar este teste, você deve concentrar-se principalmente em três arqu
 
 ### Scripts do backend
 
-1. Entre na pasta frontend: `cd .\backend\`
+1. Entre na pasta backend: `cd .\backend\`
 2. Execução do servidor: `yarn run start`
 
 ### Instalação das dependências do frontend
@@ -95,7 +95,7 @@ Para completar este teste, você deve concentrar-se principalmente em três arqu
 - `start:frontend`: Inicia apenas a parte frontend da aplicação em modo de desenvolvimento.
 - `start:backend`: Inicia apenas a parte backend da aplicação em modo de desenvolvimento.
 - `dev`: Inicia simultaneamente a parte frontend e backend da aplicação em modo de desenvolvimento.
-- `storybook`: Inicia apenas a documentação do storybook para o frontend.
+- `storybook:frontend`: Inicia apenas a documentação do storybook para o frontend.
 
 ## Critérios de Aceite
 
